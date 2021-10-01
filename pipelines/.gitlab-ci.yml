@@ -1,0 +1,34 @@
+image:
+  name: hashicorp/terraform:light
+  entrypoint:
+    - '/usr/bin/env'
+    - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+
+before_script:
+  - rm -rf .terraform
+  - terraform --version
+  - mkdir -p ~/.aws
+  - echo $AWS_CREDENTIALS | base64 -d >> ~/.aws/credentials
+  - terraform init
+
+stages:
+  - validate_plan
+  - apply_changes
+
+validate:
+  stage: validate_plan
+  script:
+    - terraform validate
+    - terraform fmt -check -recursive
+    - terraform plan --out "planfile"
+  artifacts:
+    paths:
+      - planfile  
+
+apply:
+  stage: apply_changes
+  script:
+    - terraform apply -auto-approve "planfile"
+  dependencies:
+    - plan
+  when: manual

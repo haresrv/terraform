@@ -7,6 +7,7 @@ The modules provides additional customizations with
 
 1. EC2 with EBS
 2. Security Groups 
+3. IAM
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
