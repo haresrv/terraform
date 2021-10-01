@@ -22,40 +22,25 @@ module "test_instance" {
   root_user_key_pair     = var.root_user_key_pair
   availability_zone      = var.default_availability_zone
   short_tag              = "HareSRV-node"
-  vpc_security_group_ids = [aws_security_group.allow_ssh.id]
+  vpc_security_group_ids = module.allow_ssh_security_group.security_group_ids
   ec2_instance_count     = 1
   ec2_ebs_volume_count   = 2
   ec2_ebs_volume_sizes   = [50, 100]
   ec2_device_names       = ["/dev/sdf", "/dev/sdg"]
 }
 
-resource "aws_security_group" "allow_ssh" {
-  egress = [
-    {
-      cidr_blocks      = ["0.0.0.0/0", ]
-      description      = ""
-      from_port        = 0
-      to_port          = 0
-      ipv6_cidr_blocks = []
-      prefix_list_ids  = []
-      protocol         = "-1"
-      security_groups  = []
-      self             = false
-    }
-  ]
-  ingress = [
-    {
-      cidr_blocks      = ["0.0.0.0/0", ]
-      description      = ""
-      from_port        = 22
-      to_port          = 22
-      ipv6_cidr_blocks = []
-      prefix_list_ids  = []
-      protocol         = "tcp"
-      security_groups  = []
-      self             = false
-    }
-  ]
+module "allow_ssh_security_group" {
+  source              = "./modules/SG"
+  vpc_id              = var.vpc_id
+  sg_name_prefix      = "ec2-sg"
+  ingress_cidr_blocks = ["0.0.0.0/0"]
+  egress_cidr_blocks  = ["0.0.0.0/0"]
+  tags = {
+    Name = "created with terraform"
+  }
+  ingress_ports    = [22]
+  ingress_protocol = "tcp"
+  egress_protocol  = "all"
 }
 
 resource "aws_key_pair" "ec2_key_pair" {

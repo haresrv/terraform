@@ -3,6 +3,11 @@ Terraform Playground
 
 - Repository to host AWS based Terraform modules..
 
+The modules provides additional customizations with 
+
+1. EC2 with EBS
+2. Security Groups 
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -21,6 +26,7 @@ Terraform Playground
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_allow_ssh_security_group"></a> [allow\_ssh\_security\_group](#module\_allow\_ssh\_security\_group) | ./modules/SG | n/a |
 | <a name="module_test_instance"></a> [test\_instance](#module\_test\_instance) | ./modules/EC2 | n/a |
 
 ## Resources
@@ -28,7 +34,6 @@ Terraform Playground
 | Name | Type |
 |------|------|
 | [aws_key_pair.ec2_key_pair](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) | resource |
-| [aws_security_group.allow_ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 
 ## Inputs
 
