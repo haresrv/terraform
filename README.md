@@ -27,12 +27,14 @@ The modules provides additional customizations with
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_allow_ssh_security_group"></a> [allow\_ssh\_security\_group](#module\_allow\_ssh\_security\_group) | ./modules/SG | n/a |
+| <a name="module_iam_instance_profile_for_ec2"></a> [iam\_instance\_profile\_for\_ec2](#module\_iam\_instance\_profile\_for\_ec2) | ./modules/IAM | n/a |
 | <a name="module_test_instance"></a> [test\_instance](#module\_test\_instance) | ./modules/EC2 | n/a |
 
 ## Resources
 
 | Name | Type |
 |------|------|
+| [aws_iam_instance_profile.emr_profile](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile) | resource |
 | [aws_key_pair.ec2_key_pair](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) | resource |
 
 ## Inputs
